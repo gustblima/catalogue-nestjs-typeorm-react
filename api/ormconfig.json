@@ -1,0 +1,15 @@
+
+{
+  "name": "default",
+  "type": "mysql",
+  "host": "localhost",
+  "port": 3306,
+  "username": "root",
+  "password": "password",
+  "database": "catalogue",
+  "entities": ["dist/**/**.entity.js"],
+  "migrations": [
+    "src/database/migrations/*.ts"
+  ],
+  "synchronize": true
+}
