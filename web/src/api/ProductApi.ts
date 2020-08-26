@@ -1,7 +1,7 @@
 import Api from './Api'
 import { IProduct, IPagination } from '../types';
 type getAllQueryParams = {
-  search?: string,
+  search?: string | null,
   offset?: number,
   limit?: number
 }

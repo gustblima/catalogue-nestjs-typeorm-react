@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, RouteComponentProps } from '@reach/router';
+import { Router, RouteComponentProps, useLocation } from '@reach/router';
 import { Container, Row, Col } from 'reactstrap';
 import { ProductsProvider } from './context/products'
 import Home from './pages/Home/Home'
@@ -7,6 +7,7 @@ import './App.scss';
 import { Searchbar } from './components';
 
 let HomePage = (props: RouteComponentProps) => <Home/>
+
 function App() {
   return (
     <div>
@@ -17,7 +18,7 @@ function App() {
                 MMartan
               </Col>
               <Col>
-                <Searchbar value={'a'} onSearch={() => null} />
+                <Searchbar />
               </Col>
             </Row>
           </header>

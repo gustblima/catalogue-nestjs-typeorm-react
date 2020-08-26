@@ -1,0 +1,61 @@
+$light-gray: #edeae9;
+$dark-gray: #777;
+.ProductItem {
+  border: 0.5px solid $light-gray;
+  margin: -1px;
+  padding: 0.5rem;
+
+  &-Thumbnail {
+    width: 20%;
+    min-width: 25px;
+    display: flex;
+    margin: 0 0.5rem;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden
+    img {
+      flex-shrink: 0;
+      min-width: 100%;
+      min-height: 100%
+    }
+  }
+
+  &-Price {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    h6 {
+      display: flex;
+      font-weight: bold;
+      font-size: small;
+      align-items: flex-start;
+      .discount {
+        color: $dark-gray;
+      }
+    }
+  }
+
+  &-Info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+
+    p {
+      margin-bottom: 0;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    &-Name {
+      font-weight: bold;
+    }
+
+    &-Category {
+      font-weight: lighter;
+      font-size: smaller;
+      color: $dark-gray;
+    }
+  }
+}

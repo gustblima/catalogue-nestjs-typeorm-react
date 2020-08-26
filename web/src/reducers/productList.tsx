@@ -7,14 +7,18 @@ export type ProductsListAction =
       payload: IPagination<IProduct>
     }
   | { type: 'FETCH_PRODUCTS_ERROR'; error: string }
-  | { type: 'SET_PAGE'; page: number };
+  | { type: 'SET_SEARCH'; search: string }
+  | { type: 'SET_LIMIT'; limit: number }
+  | { type: 'SET_OFFSET'; offset: number };
 
 export interface ProductsListState {
   products: Array<IProduct>;
   loading: boolean;
   error: string | null;
   productsCount: number;
-  page: number;
+  offset: number;
+  limit: number;
+  search: string | null;
 }
 
 export const initialState: ProductsListState = {
@@ -22,7 +26,9 @@ export const initialState: ProductsListState = {
   loading: false,
   error: null,
   productsCount: 0,
-  page: 0,
+  offset: 0,
+  limit: 0,
+  search: null
 };
 
 export function productsReducer(
@@ -51,11 +57,22 @@ export function productsReducer(
         error: action.error,
         products: [],
       };
-    case 'SET_PAGE':
+    case 'SET_OFFSET':
       return {
         ...state,
-        page: action.page,
+        offset: action.offset,
       };
+    case 'SET_LIMIT':
+      return {
+        ...state,
+        limit: action.limit
+      }
+    case 'SET_SEARCH':
+      return {
+        ...state,
+        search: action.search
+      }
+    
     default:
       return state;
   }
