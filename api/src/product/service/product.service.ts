@@ -12,14 +12,20 @@ export class ProductService {
     @InjectRepository(ProductVariant) private variantsRepository: Repository<ProductVariant>
   ) {}
   async getProducts(keyword: string = '', offset: number = 0, limit: number = 10): Promise<Pagination<Product>> {
-    const [result, total] = await this.productsRepository.findAndCount({
-      where: {
-        name: Like(`%${keyword}%`)
-      },
-      take: limit,
-      skip: offset
-    });
-    return { 
+    const [result, total] = await this.productsRepository.createQueryBuilder('product')
+      .innerJoinAndSelect('product.variants', 'variant')
+      .leftJoinAndSelect('variant.deals', 'deal', 'deal.startsAt >= :now and deal.expiresAt < :now', { now: new Date() })
+      .leftJoinAndSelect('product.photos', 'photo')
+      .leftJoinAndSelect('variant.category', 'category')
+      .where('product.name LIKE :name AND product.isPublished = :isPublished', {
+        name: `%${keyword}%`,
+        isPublished: true
+      })
+      .take(limit)
+      .skip(offset)
+      .getManyAndCount();
+
+    return {
       data: result,
       total
     }

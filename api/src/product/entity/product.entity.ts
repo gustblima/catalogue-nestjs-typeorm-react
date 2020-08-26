@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn, BeforeUpdate, Index, ManyToMany, JoinTable } from 'typeorm';
 import { ProductVariant } from './product-variant.entity';
-import { Deal } from './deal.entity';
+import { ProductPhoto } from './product-photo.entity';
 
 @Index(['name'], { unique: true })
 @Entity()
@@ -9,9 +9,8 @@ export class Product {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToMany(type => Deal)
-  @JoinTable({ name: 'product_deals' })
-  deals: Deal[]
+  @OneToMany(type => ProductPhoto, photo => photo.product, { eager: true })
+  photos: ProductPhoto[];
 
   @Column()
   name: string;

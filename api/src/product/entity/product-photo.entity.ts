@@ -1,10 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, Index } from 'typeorm';
-import { ProductVariant } from './product-variant.entity';
+import { Product } from './product.entity';
 
 
 @Entity()
-@Index(['sortOrder', 'variant'], { unique: true })
-export class ProductVariantPhoto {
+@Index(['sortOrder', 'product'], { unique: true })
+export class ProductPhoto {
 
   @PrimaryGeneratedColumn()
   id: number;
@@ -15,11 +15,11 @@ export class ProductVariantPhoto {
   @Column()
   sortOrder: number;
 
-  @ManyToOne(type => ProductVariant, variant => variant.id, { nullable: false })
+  @ManyToOne(type => Product, product => product.id, { nullable: false })
   @JoinColumn()
-  variant: ProductVariant;
+  product: Product;
 
   @Column()
-  variantId: number;
+  productId: number;
 
 }
