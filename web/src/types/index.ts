@@ -15,8 +15,6 @@ export interface ICategory {
 }
 
 export interface IProductVariant {
-  name: string,
-  photos: IProductPhoto[]
   categoryId: number
   price: number
   category: ICategory

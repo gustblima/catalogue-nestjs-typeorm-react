@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'reactstrap';
 import { ProductsProvider } from './context/products'
 import Home from './pages/Home/Home'
 import './App.scss';
-import { Searchbar } from './components';
+import { Header } from './components';
 
 let HomePage = (props: RouteComponentProps) => <Home/>
 
@@ -12,21 +12,12 @@ function App() {
   return (
     <div>
       <ProductsProvider>
-          <header className="App-header">
-            <Row>
-              <Col>
-                MMartan
-              </Col>
-              <Col>
-                <Searchbar />
-              </Col>
-            </Row>
-          </header>
-          <Container className="App">
+        <Header />
+        <div className="App">
           <Router>
             <HomePage path="/" />
           </Router>
-        </Container>
+        </div>
       </ProductsProvider>
     </div>
   );

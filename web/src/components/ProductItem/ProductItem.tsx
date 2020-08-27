@@ -12,7 +12,6 @@ var formatter = new Intl.NumberFormat('pt-BR', {
   currency: 'BRL',
 });
 
-
 const getPriceWithDiscount = (variant: IProductVariant) => {
   const { price, deals } = variant;
   const { percentageAmount, fixedAmount } = deals.reduce((total, d) => {
@@ -35,16 +34,16 @@ const getPriceWithDiscount = (variant: IProductVariant) => {
   }
 }
 export function ProductItem({ product }: ProductItemProps) {
-  const firstVariant = product?.variants.shift()
+  const firstVariant = product.variants.shift()
   const amount = firstVariant && getPriceWithDiscount(firstVariant!)
-
+  console.log(product)
   return (
-    <Row className='ProductItem'>
+    (firstVariant ? <Row className='ProductItem'>
       <Col xs={4} className='d-flex flex-wrap'>
       {
-        product.photos.slice(0, 4).map(p => 
-          <div key={p.sortOrder} className='ProductItem-Thumbnail'>
-            <img src={p.path}/>
+        
+        product.photos.slice(0, 4).map(p =>
+          <div key={p.sortOrder} className='ProductItem-Thumbnail' style={{ backgroundImage: `url("${p.path}")`}}>
           </div>
         )
       }
@@ -57,6 +56,6 @@ export function ProductItem({ product }: ProductItemProps) {
         <h6>{amount.discount > 0 && (<span>{formatter.format(amount.oldPrice)} por</span>)}</h6>
         <h6>{formatter.format(amount.finalPrice)}</h6>
       </Col>}
-    </Row>
+    </Row> : null)
   );
 }

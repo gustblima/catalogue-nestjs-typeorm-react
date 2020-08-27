@@ -8,16 +8,16 @@ $dark-gray: #777;
   &-Thumbnail {
     width: 20%;
     min-width: 25px;
+    height: 70px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: inline-block;
     display: flex;
     margin: 0 0.5rem;
     justify-content: center;
     align-items: center;
-    overflow: hidden
-    img {
-      flex-shrink: 0;
-      min-width: 100%;
-      min-height: 100%
-    }
+    overflow: hidden;
+    background-size: cover;
   }
 
   &-Price {

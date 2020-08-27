@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import ProductList from '../../components/ProductList';
+import { ProductList } from '../../components';
 import { useLocation } from '@reach/router';
 import { parse } from 'query-string';
 import useProducts from '../../context/products';
-import { Row } from 'reactstrap';
+import { Row, Container } from 'reactstrap';
+import './Home.scss';
 
 function Home() {
   const { search } = useLocation();
@@ -15,13 +16,15 @@ function Home() {
     }
   }, []);
   return (
-    <>
+    <div className='Home'>
       {searchString && 
-      <Row>
-        <h1>{searchString}</h1>  
-      </Row>}
-      <ProductList />
-    </>
+      <div className='Home-Title'>
+        <h2>{searchString}</h2>
+      </div>}
+      <Container>
+        <ProductList />
+      </Container>
+    </div>
   )
 }
 

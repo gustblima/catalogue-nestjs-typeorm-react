@@ -43,7 +43,6 @@ export function productsReducer(
         error: null,
       };
     case 'FETCH_PRODUCTS_SUCCESS':
-      console.log(action)
       return {
         ...state,
         loading: false,
