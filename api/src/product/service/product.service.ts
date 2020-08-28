@@ -14,7 +14,7 @@ export class ProductService {
   async getProducts(keyword: string = '', offset: number = 0, limit: number = 10): Promise<Pagination<Product>> {
     const [result, total] = await this.productsRepository.createQueryBuilder('product')
       .innerJoinAndSelect('product.variants', 'variant')
-      .leftJoinAndSelect('variant.deals', 'deal', 'deal.startsAt >= :now and deal.expiresAt < :now', { now: new Date() })
+      .leftJoinAndSelect('variant.deals', 'deal', 'deal.startsAt >= :now', { now: `'${new Date().toISOString()}'` })
       .leftJoinAndSelect('product.photos', 'photo')
       .leftJoinAndSelect('variant.category', 'category')
       .where('product.name LIKE :name AND product.isPublished = :isPublished', {
