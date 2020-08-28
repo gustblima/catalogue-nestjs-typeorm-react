@@ -2,14 +2,14 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn, BeforeUp
 import { ProductVariant } from './product-variant.entity';
 import { ProductPhoto } from './product-photo.entity';
 
-@Index(['name'], { unique: true })
+@Index(['name'])
 @Entity()
 export class Product {
 
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToMany(type => ProductPhoto, photo => photo.product, { eager: true })
+  @OneToMany(type => ProductPhoto, photo => photo.product, { eager: true, cascade: true })
   photos: ProductPhoto[];
 
   @Column()

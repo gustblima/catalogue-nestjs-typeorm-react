@@ -15,7 +15,7 @@ export class ProductPhoto {
   @Column()
   sortOrder: number;
 
-  @ManyToOne(type => Product, product => product.id, { nullable: false })
+  @ManyToOne(type => Product, product => product.photos, { nullable: false })
   @JoinColumn()
   product: Product;
 
