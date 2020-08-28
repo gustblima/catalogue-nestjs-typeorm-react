@@ -29,7 +29,7 @@ export function Searchbar() {
   return (
     <label className='Searchbar'>
       <FontAwesomeIcon icon={ faSearch } />
-      <Input type='search' value={value} onChange={(e) => setValue(e.currentTarget.value)} onKeyUp={ onSearch } />
+      <Input type='search' value={value || ''} onChange={(e) => setValue(e.currentTarget.value)} onKeyUp={ onSearch } />
       {value?.length > 0 && <FontAwesomeIcon className='Searchbar-Clear' icon={ faTimesCircle } onClick={() => setValue('')}/>}
     </label>
   );

@@ -9,14 +9,15 @@ export type ProductsListAction =
   | { type: 'FETCH_PRODUCTS_ERROR'; error: string }
   | { type: 'SET_SEARCH'; search: string }
   | { type: 'SET_LIMIT'; limit: number }
-  | { type: 'SET_OFFSET'; offset: number };
+  | { type: 'SET_PAGE'; page: number };
 
 export interface ProductsListState {
-  products: Array<IProduct>;
+  products: IProduct[];
   loading: boolean;
   error: string | null;
   productsCount: number;
-  offset: number;
+  page: number;
+  totalPages: number;
   limit: number;
   search: string | null;
 }
@@ -26,7 +27,8 @@ export const initialState: ProductsListState = {
   loading: false,
   error: null,
   productsCount: 0,
-  offset: 0,
+  page: 0,
+  totalPages: 0,
   limit: 0,
   search: null
 };
@@ -35,6 +37,7 @@ export function productsReducer(
   state: ProductsListState,
   action: ProductsListAction,
 ): ProductsListState {
+
   switch (action.type) {
     case 'FETCH_PRODUCTS_BEGIN':
       return {
@@ -48,6 +51,7 @@ export function productsReducer(
         loading: false,
         products: action.payload.data,
         productsCount: action.payload.total,
+        totalPages: 10 || Math.ceil(action.payload.total / state.limit)
       };
     case 'FETCH_PRODUCTS_ERROR':
       return {
@@ -56,10 +60,10 @@ export function productsReducer(
         error: action.error,
         products: [],
       };
-    case 'SET_OFFSET':
+    case 'SET_PAGE':
       return {
         ...state,
-        offset: action.offset,
+        page: action.page,
       };
     case 'SET_LIMIT':
       return {

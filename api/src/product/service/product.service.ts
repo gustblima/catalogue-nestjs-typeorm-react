@@ -36,7 +36,6 @@ export class ProductService {
   }
 
   async saveVariant(data: CreateProductVariantDTO) {
-    console.log(data)
     return this.variantsRepository.save(data);
   }
 

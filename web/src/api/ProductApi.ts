@@ -6,6 +6,6 @@ type getAllQueryParams = {
   limit?: number
 }
 
-export const getAllProducts = async (params: getAllQueryParams = {}) => {
+export const getAllProducts = (params: getAllQueryParams = {}) => {
   return Api.get<IPagination<IProduct>>('/products', { params });
 }

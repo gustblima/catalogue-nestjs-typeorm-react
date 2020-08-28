@@ -1,0 +1,17 @@
+.PaginationOffset {
+  display: inline-flex;
+  position: absolute;
+  right: 0;
+  .page-link {
+    color: #333;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    font-size: small;
+  }
+  .page-item.active .page-link {
+    background: white;
+    color: black;
+    border: 1px #ccc solid;
+    border-radius: 5px;
+  }
+}
