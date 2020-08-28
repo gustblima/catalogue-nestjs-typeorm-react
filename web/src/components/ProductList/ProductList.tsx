@@ -3,13 +3,17 @@ import { Spinner, Row, Col } from 'reactstrap';
 import { ProductItem, PaginationOffset, PaginationLimit } from '../index';
 import useProducts from '../../context/products';
 import { getAllProducts } from '../../api/ProductApi';
+import queryString from 'query-string';
 import "./ProductList.scss";
+import { navigate, useNavigate, useLocation } from '@reach/router';
 
 export function ProductList() {
   const {
     state: { products, search, limit, page, totalPages, loading },
     dispatch,
   } = useProducts();
+
+  const location = useLocation();
 
   const changePage = (selectedPage: number) => {
     if(selectedPage >= 0 && selectedPage <= (totalPages - 1) && selectedPage !== page) {
@@ -31,11 +35,20 @@ export function ProductList() {
         dispatch({ type: 'FETCH_PRODUCTS_ERROR', error });
       }
     }
-    if(!loading) {
-      loadProducts();
-    }
+    loadProducts();
  
-  }, [dispatch, page, limit, search])
+  }, [page, limit, search])
+
+
+  useEffect(() => {
+    const queries = queryString.parse(location.search);
+    const newQueryString = queryString.stringify({
+      ...queries,
+      page,
+      limit
+    });
+    navigate(`/?${newQueryString}`);
+  }, [page, limit])
 
   return (
     <div className='ProductList'>

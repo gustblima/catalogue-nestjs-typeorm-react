@@ -8,6 +8,7 @@ export type ProductsListAction =
     }
   | { type: 'FETCH_PRODUCTS_ERROR'; error: string }
   | { type: 'SET_SEARCH'; search: string }
+  | { type: 'RESTORE_PAGINATION'; payload: { search: string, page: number, limit: number } }
   | { type: 'SET_LIMIT'; limit: number }
   | { type: 'SET_PAGE'; page: number };
 
@@ -29,7 +30,7 @@ export const initialState: ProductsListState = {
   productsCount: 0,
   page: 0,
   totalPages: 0,
-  limit: 0,
+  limit: 10,
   search: null
 };
 
@@ -75,7 +76,13 @@ export function productsReducer(
         ...state,
         search: action.search
       }
-    
+    case 'RESTORE_PAGINATION':
+      return {
+        ...state,
+        search: action.payload.search,
+        page: action.payload.page,
+        limit: action.payload.limit
+      }
     default:
       return state;
   }

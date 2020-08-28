@@ -8,18 +8,20 @@ import './Home.scss';
 
 function Home() {
   const { search } = useLocation();
-  const { dispatch, state: { search : searchString }} = useProducts();
+  const { dispatch, state: { search : searchStored, page: pageStored, limit: limitStored }} = useProducts();
   useEffect(() => {
-    const searchParam = parse(search).search as string
-    if(searchParam) {
-      dispatch({ type: 'SET_SEARCH', search: searchParam });
-    }
+    const { search: searchParam, page: pageParam, limit: limitParam } = parse(search)
+    dispatch({ type: 'RESTORE_PAGINATION', payload: {
+      search: searchParam as string, 
+      page: +(pageParam || pageStored),
+      limit: +(limitParam || limitStored)
+    }});
   }, []);
   return (
     <div className='Home'>
-      {searchString && 
+      {searchStored && 
       <div className='Home-Title'>
-        <h2>{searchString}</h2>
+        <h2>{searchStored}</h2>
       </div>}
       <Container>
         <ProductList />
