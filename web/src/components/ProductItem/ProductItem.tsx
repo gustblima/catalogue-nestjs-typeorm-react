@@ -23,10 +23,9 @@ const getPriceWithDiscount = (variant: IProductVariant) => {
     percentageAmount: 0,
     fixedAmount: 0
   });
-
-  const discount = (price * percentageAmount) + fixedAmount;
   const oldPrice = price / 100.0;
-  const finalPrice = (price - discount) / 100.0;
+  const discount = (oldPrice) * percentageAmount / 100.0;
+  const finalPrice = oldPrice - discount;
   return {
     discount,
     oldPrice,
@@ -50,8 +49,7 @@ export function ProductItem({ product }: ProductItemProps) {
         <p className='ProductItem-Info-Category'>{firstVariant?.category.name}</p>
       </Col>
       {amount && <Col className='ProductItem-Price' xs={2}>
-        <h6>{amount.discount > 0 && (<span>{formatter.format(amount.oldPrice)} por</span>)}</h6>
-        <h6>{formatter.format(amount.finalPrice)}</h6>
+        <span className='amount'>{amount.discount > 0 && (<span className='discount pr-1'><span className='discount price'>{formatter.format(amount.oldPrice)}</span> por </span>)} {formatter.format(amount.finalPrice)}</span>
       </Col>}
     </Row> : null)
   );

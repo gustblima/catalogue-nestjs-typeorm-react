@@ -25,13 +25,18 @@ $dark-gray: #777;
     flex-direction: column;
     justify-content: center;
     align-items: end;
-    h6 {
+    .amount {
       display: flex;
+      position: absolute;
+      right: 1rem;
       font-weight: bold;
       font-size: small;
       align-items: flex-start;
       .discount {
         color: $dark-gray;
+      }
+      .discount.price {
+        text-decoration: line-through;
       }
     }
   }

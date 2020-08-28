@@ -11,11 +11,13 @@ function Home() {
   const { dispatch, state: { search : searchStored, page: pageStored, limit: limitStored }} = useProducts();
   useEffect(() => {
     const { search: searchParam, page: pageParam, limit: limitParam } = parse(search)
-    dispatch({ type: 'RESTORE_PAGINATION', payload: {
-      search: searchParam as string, 
-      page: +(pageParam || pageStored),
-      limit: +(limitParam || limitStored)
-    }});
+    if(searchParam && searchParam !== searchStored || limitParam && +limitParam !== limitStored || pageParam && +pageParam !== pageStored ) {
+      dispatch({ type: 'RESTORE_PAGINATION', payload: {
+        search: searchParam as string, 
+        page: +(pageParam || pageStored),
+        limit: +(limitParam || limitStored)
+      }});
+    }
   }, []);
   return (
     <div className='Home'>
