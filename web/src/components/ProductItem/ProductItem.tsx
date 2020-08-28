@@ -46,7 +46,7 @@ export function ProductItem({ product }: ProductItemProps) {
       </Col>
       <Col xs={6} className='ProductItem-Info'>
         <p className='ProductItem-Info-Name'>{product.name}</p>
-        <p className='ProductItem-Info-Category'>{firstVariant?.category.name}</p>
+        <p className='ProductItem-Info-Category'>{product.description} - {firstVariant?.category.name}</p>
       </Col>
       {amount && <Col className='ProductItem-Price' xs={2}>
         <span className='amount'>{amount.discount > 0 && (<span className='discount pr-1'><span className='discount price'>{formatter.format(amount.oldPrice)}</span> por </span>)} {formatter.format(amount.finalPrice)}</span>

@@ -28,7 +28,7 @@ export const initialState: ProductsListState = {
   loading: false,
   error: null,
   productsCount: 0,
-  page: 0,
+  page: 1,
   totalPages: 0,
   limit: 10,
   search: null
@@ -52,7 +52,7 @@ export function productsReducer(
         loading: false,
         products: action.payload.data,
         productsCount: action.payload.total,
-        totalPages: 10 || Math.ceil(action.payload.total / state.limit)
+        totalPages: Math.ceil(action.payload.total / state.limit)
       };
     case 'FETCH_PRODUCTS_ERROR':
       return {

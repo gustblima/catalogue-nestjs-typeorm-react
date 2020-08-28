@@ -3,7 +3,7 @@ $dark-gray: #777;
 .ProductItem {
   border: 0.5px solid $light-gray;
   margin: -1px;
-  padding: 0.5rem;
+  padding: 0.3rem;
 
   &-Thumbnail {
     width: 20%;
@@ -13,7 +13,7 @@ $dark-gray: #777;
     background-repeat: no-repeat;
     display: inline-block;
     display: flex;
-    margin: 0 0.5rem;
+    margin: 0 0.3rem;
     justify-content: center;
     align-items: center;
     overflow: hidden;

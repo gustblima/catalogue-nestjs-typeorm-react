@@ -9,25 +9,27 @@ type PaginationOffsetProps = {
 }
 
 export function PaginationOffset ({ currentPage, totalPages, onClick }: PaginationOffsetProps)  {
+
+  const [minPage, maxPage] = [Math.max(currentPage - 3, 0), Math.min(currentPage + 3, totalPages)]
   return (
     <Pagination className='PaginationOffset'>
-       <PaginationItem disabled={currentPage === 0} onClick={() => onClick(0)}>
+       <PaginationItem disabled={currentPage === 1} onClick={() => onClick(1)}>
         <PaginationLink first />
       </PaginationItem>
       <PaginationItem disabled={currentPage < 1} onClick={() => onClick(currentPage - 1)}>
         <PaginationLink previous />
       </PaginationItem>
-      {[...Array(totalPages)].map((n, i) => (
-        <PaginationItem key={i} active={currentPage === i}>
-          <PaginationLink onClick={() => onClick(i)}>
-            {i + 1}
+      {[...Array(maxPage - minPage)].map((n, i) => (
+        <PaginationItem key={currentPage + i} active={currentPage === minPage + i + 1}>
+          <PaginationLink onClick={() => onClick(minPage + i + 1)}>
+            {minPage + i + 1}
           </PaginationLink>
         </PaginationItem>
       ))} 
-      <PaginationItem disabled={currentPage >= totalPages - 1} onClick={() => onClick(currentPage + 1)}>
+      <PaginationItem disabled={currentPage >= totalPages} onClick={() => onClick(currentPage + 1)}>
         <PaginationLink next  />
       </PaginationItem>
-      <PaginationItem onClick={() => onClick(totalPages - 1)} disabled={totalPages - 1 === currentPage} >
+      <PaginationItem onClick={() => onClick(totalPages)} disabled={totalPages === currentPage} >
         <PaginationLink last />
       </PaginationItem>
     </Pagination>
