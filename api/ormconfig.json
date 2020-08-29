@@ -7,9 +7,10 @@
   "username": "root",
   "password": "password",
   "database": "catalogue",
-  "entities": ["dist/**/*.entity.js"],
+  "entities": ["dist/**/**.entity{.ts,.js}"],
   "migrations": [
     "dist/migrations/**/*.js"
   ],
+  "logging": true,
   "synchronize": true
 }
