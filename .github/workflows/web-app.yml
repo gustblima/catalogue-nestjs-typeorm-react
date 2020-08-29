@@ -26,12 +26,7 @@ jobs:
           npm ci &&  npm run build
         working-directory: web
 
-      - name: Run tests
-        run: | 
-          npm test
-        working-directory: web
-      
       - name: Deploy app S3
         run: | 
-          aws s3 sync ./dist/ s3://${{ secrets.BUCKET_NAME }} --delete
+          aws s3 sync ./build/ s3://${{ secrets.BUCKET_NAME }} --delete
         working-directory: web

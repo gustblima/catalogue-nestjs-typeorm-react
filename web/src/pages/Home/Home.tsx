@@ -3,7 +3,7 @@ import { ProductList } from '../../components';
 import { useLocation } from '@reach/router';
 import { parse } from 'query-string';
 import useProducts from '../../context/products';
-import { Row, Container } from 'reactstrap';
+import { Container } from 'reactstrap';
 import './Home.scss';
 
 function Home() {
@@ -30,6 +30,7 @@ function Home() {
         },
       });
     }
+    // eslint-disable-next-line
   }, []);
   return (
     <div className="Home">

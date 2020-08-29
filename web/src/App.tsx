@@ -1,6 +1,5 @@
 import React from 'react';
-import { Router, RouteComponentProps, useLocation } from '@reach/router';
-import { Container, Row, Col } from 'reactstrap';
+import { Router, RouteComponentProps } from '@reach/router';
 import { ProductsProvider } from './context/products';
 import Home from './pages/Home/Home';
 import './App.scss';

@@ -5,7 +5,7 @@ import useProducts from '../../context/products';
 import { getAllProducts } from '../../api/ProductApi';
 import queryString from 'query-string';
 import './ProductList.scss';
-import { navigate, useNavigate, useLocation } from '@reach/router';
+import { navigate, useLocation } from '@reach/router';
 
 export function ProductList() {
   const {
@@ -52,7 +52,7 @@ export function ProductList() {
       }
     };
     loadProducts();
-  }, [page, limit, search]);
+  }, [dispatch, page, limit, search]);
 
   useEffect(() => {
     const queries = queryString.parse(location.search);
@@ -62,6 +62,7 @@ export function ProductList() {
       limit,
     });
     navigate(`/?${newQueryString}`);
+    // eslint-disable-next-line
   }, [page, limit]);
 
   return (

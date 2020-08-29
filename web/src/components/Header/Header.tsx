@@ -9,7 +9,7 @@ export function Header() {
     <header className="Header">
       <Row className="p-2 px-4 align-items-center">
         <Col sm={2}>
-          <img src={logo} className="Header-Logo" />
+          <img alt="Logo" src={logo} className="Header-Logo" />
         </Col>
         <Col sm={{ size: 3, offset: 7 }}>
           <Searchbar />

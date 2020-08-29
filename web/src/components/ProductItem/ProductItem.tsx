@@ -1,7 +1,7 @@
 import React from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import './ProductItem.scss';
-import { IProduct, IDeal, IProductVariant } from '../../types';
+import { IProduct, IProductVariant } from '../../types';
 
 type ProductItemProps = {
   product: IProduct;
@@ -27,7 +27,7 @@ const getPriceWithDiscount = (variant: IProductVariant) => {
     },
   );
   const oldPrice = price / 100.0;
-  const discount = (oldPrice * percentageAmount) / 100.0;
+  const discount = ((oldPrice * percentageAmount) - fixedAmount) / 100.0;
   const finalPrice = oldPrice - discount;
   return {
     discount,

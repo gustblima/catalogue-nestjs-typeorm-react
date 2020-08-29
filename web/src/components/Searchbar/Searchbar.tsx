@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
+import { Input } from 'reactstrap';
 import { navigate } from '@reach/router';
 import useProducts from '../../context/products';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
