@@ -69,6 +69,7 @@ export function productsReducer(
     case 'SET_LIMIT':
       return {
         ...state,
+        page: 1,
         limit: action.limit
       }
     case 'SET_SEARCH':

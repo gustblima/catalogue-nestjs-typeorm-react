@@ -25,7 +25,7 @@ function Home() {
       <div className='Home-Title'>
         <h2>{searchStored}</h2>
       </div>}
-      <Container>
+      <Container className='mb-5'>
         <ProductList />
       </Container>
     </div>

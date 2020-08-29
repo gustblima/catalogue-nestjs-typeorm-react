@@ -16,7 +16,7 @@ export function PaginationOffset ({ currentPage, totalPages, onClick }: Paginati
        <PaginationItem disabled={currentPage === 1} onClick={() => onClick(1)}>
         <PaginationLink first />
       </PaginationItem>
-      <PaginationItem disabled={currentPage < 1} onClick={() => onClick(currentPage - 1)}>
+      <PaginationItem disabled={currentPage === 1} onClick={() => onClick(currentPage - 1)}>
         <PaginationLink previous />
       </PaginationItem>
       {[...Array(maxPage - minPage)].map((n, i) => (
@@ -26,10 +26,10 @@ export function PaginationOffset ({ currentPage, totalPages, onClick }: Paginati
           </PaginationLink>
         </PaginationItem>
       ))} 
-      <PaginationItem disabled={currentPage >= totalPages} onClick={() => onClick(currentPage + 1)}>
+      <PaginationItem disabled={currentPage === totalPages} onClick={() => onClick(currentPage + 1)}>
         <PaginationLink next  />
       </PaginationItem>
-      <PaginationItem onClick={() => onClick(totalPages)} disabled={totalPages === currentPage} >
+      <PaginationItem onClick={() => onClick(totalPages)} disabled={currentPage === totalPages} >
         <PaginationLink last />
       </PaginationItem>
     </Pagination>

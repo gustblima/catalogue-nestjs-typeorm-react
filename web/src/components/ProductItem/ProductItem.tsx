@@ -37,18 +37,18 @@ export function ProductItem({ product }: ProductItemProps) {
   const amount = firstVariant && getPriceWithDiscount(firstVariant!)
   return (
     (firstVariant ? <Row className='ProductItem'>
-      <Col xs={4} className='d-flex flex-wrap'>
+      <Col xs={4} className='d-flex flex-wrap px-0'>
       {product.photos.slice(0, 4)
         .map(p =>
           <div key={p.sortOrder} className='ProductItem-Thumbnail' style={{ backgroundImage: `url("${p.path}")`}}>
           </div>
         )}
       </Col>
-      <Col xs={6} className='ProductItem-Info'>
+      <Col xs={4} className='ProductItem-Info'>
         <p className='ProductItem-Info-Name'>{product.name}</p>
         <p className='ProductItem-Info-Category'>{product.description} - {firstVariant?.category.name}</p>
       </Col>
-      {amount && <Col className='ProductItem-Price' xs={2}>
+      {amount && <Col className='ProductItem-Price' xs={4}>
         <span className='amount'>{amount.discount > 0 && (<span className='discount pr-1'><span className='discount price'>{formatter.format(amount.oldPrice)}</span> por </span>)} {formatter.format(amount.finalPrice)}</span>
       </Col>}
     </Row> : null)
