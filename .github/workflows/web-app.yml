@@ -3,7 +3,7 @@ name: Web App CI
 on:
   push:
     branches: 
-     - production-web
+     - frontend
 
 jobs:
   build:
@@ -11,7 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -20,10 +22,16 @@ jobs:
           aws-region: us-east-1
 
       - name: Build Web App
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: npm test
+        run: | 
+          npm ci &&  npm run build
+        working-directory: web
+
+      - name: Run tests
+        run: | 
+          npm test
+        working-directory: web
       
       - name: Deploy app S3
-        run: aws s3 sync ./dist/ s3://${{ secrets.BUCKET_NAME }} --delete
-
+        run: | 
+          aws s3 sync ./dist/ s3://${{ secrets.BUCKET_NAME }} --delete
+        working-directory: web
