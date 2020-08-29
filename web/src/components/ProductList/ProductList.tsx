@@ -4,75 +4,106 @@ import { ProductItem, PaginationOffset, PaginationLimit } from '../index';
 import useProducts from '../../context/products';
 import { getAllProducts } from '../../api/ProductApi';
 import queryString from 'query-string';
-import "./ProductList.scss";
+import './ProductList.scss';
 import { navigate, useNavigate, useLocation } from '@reach/router';
 
 export function ProductList() {
   const {
-    state: { products, productsCount, search, limit, page, totalPages, loading },
+    state: {
+      products,
+      productsCount,
+      search,
+      limit,
+      page,
+      totalPages,
+      loading,
+    },
     dispatch,
   } = useProducts();
 
   const location = useLocation();
 
   const changePage = (selectedPage: number) => {
-    if(selectedPage > 0 && selectedPage <= (totalPages) && selectedPage !== page) {
-      dispatch({ type: 'SET_PAGE', page: selectedPage })
+    if (
+      selectedPage > 0 &&
+      selectedPage <= totalPages &&
+      selectedPage !== page
+    ) {
+      dispatch({ type: 'SET_PAGE', page: selectedPage });
     }
-  }
+  };
 
   const changeLimit = (limit: number) => {
-    dispatch({ type: 'SET_LIMIT', limit })
-  }
+    dispatch({ type: 'SET_LIMIT', limit });
+  };
 
   useEffect(() => {
     const loadProducts = async () => {
-      dispatch({ type: 'FETCH_PRODUCTS_BEGIN'});
+      dispatch({ type: 'FETCH_PRODUCTS_BEGIN' });
       try {
-        const payload = await getAllProducts({ offset: (page - 1) * limit, limit, search })
+        const payload = await getAllProducts({
+          offset: (page - 1) * limit,
+          limit,
+          search,
+        });
         dispatch({ type: 'FETCH_PRODUCTS_SUCCESS', payload: payload.data });
       } catch (error) {
         dispatch({ type: 'FETCH_PRODUCTS_ERROR', error });
       }
-    }
+    };
     loadProducts();
- 
-  }, [page, limit, search])
-
+  }, [page, limit, search]);
 
   useEffect(() => {
     const queries = queryString.parse(location.search);
     const newQueryString = queryString.stringify({
       ...queries,
       page,
-      limit
+      limit,
     });
     navigate(`/?${newQueryString}`);
-  }, [page, limit])
+  }, [page, limit]);
 
   return (
-    <div className='ProductList'>
-      {!loading ?
-      <>
-        <Row>
-          <div className='w-100'>
-            <div className='ProductList-Header'>
-              <h6>{productsCount} {productsCount !== 1 ? 'produtos encontrados' : 'produto encontrado'}</h6>
+    <div className="ProductList">
+      {!loading ? (
+        <>
+          <Row>
+            <div className="w-100">
+              <div className="ProductList-Header">
+                {productsCount > 0 && (
+                  <h6>
+                    {productsCount}{' '}
+                    {productsCount !== 1
+                      ? 'produtos encontrados'
+                      : 'produto encontrado'}
+                  </h6>
+                )}
+              </div>
+              {products.map((p) => (
+                <ProductItem key={p.id} product={p} />
+              ))}
+              {productsCount === 0 && <h6>Nenhum produto encontrado :(</h6>}
             </div>
-            { products.map(p => <ProductItem key={p.id} product={p} />) }
-            { productsCount === 0 && <h6>Nenhum produto encontrado :(</h6> }
-          </div>
-        </Row>
-        { productsCount > 0 && <Row className='Footer mt-5'>
-          <Col sm={4}>
-            <PaginationLimit onSelect={changeLimit} value={limit} />
-          </Col>
-          <Col sm={8}>
-            <PaginationOffset onClick={changePage} totalPages={totalPages} currentPage={page} />
-          </Col>
-        </Row> }
+          </Row>
+          {productsCount > 0 && (
+            <Row className="Footer mt-5">
+              <Col sm={4}>
+                <PaginationLimit onSelect={changeLimit} value={limit} />
+              </Col>
+              <Col sm={8}>
+                <PaginationOffset
+                  onClick={changePage}
+                  totalPages={totalPages}
+                  currentPage={page}
+                />
+              </Col>
+            </Row>
+          )}
         </>
-       : <Spinner className="ProductList-Spinner" color="primary" /> }
+      ) : (
+        <Spinner className="ProductList-Spinner" color="primary" />
+      )}
     </div>
   );
 }

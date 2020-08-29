@@ -11,7 +11,7 @@ export class ProductService {
     @InjectRepository(Product) private productsRepository: Repository<Product>,
     @InjectRepository(ProductVariant) private variantsRepository: Repository<ProductVariant>
   ) {}
-  async getProducts(keyword: string = '', offset: number = 0, limit: number = 10): Promise<Pagination<Product>> {
+  async getProducts(keyword = '', offset = 0, limit = 10): Promise<Pagination<Product>> {
     const [result, total] = await this.productsRepository.createQueryBuilder('product')
       .innerJoinAndSelect('product.variants', 'variant')
       .leftJoinAndSelect('variant.deals', 'deal', 'deal.startsAt >= :now', { now: `'${new Date().toISOString()}'` })

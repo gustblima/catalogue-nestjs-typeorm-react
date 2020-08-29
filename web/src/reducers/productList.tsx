@@ -1,14 +1,17 @@
-import { IProduct, IPagination } from "../types";
+import { IProduct, IPagination } from '../types';
 
 export type ProductsListAction =
   | { type: 'FETCH_PRODUCTS_BEGIN' }
   | {
       type: 'FETCH_PRODUCTS_SUCCESS';
-      payload: IPagination<IProduct>
+      payload: IPagination<IProduct>;
     }
   | { type: 'FETCH_PRODUCTS_ERROR'; error: string }
   | { type: 'SET_SEARCH'; search: string }
-  | { type: 'RESTORE_PAGINATION'; payload: { search: string, page: number, limit: number } }
+  | {
+      type: 'RESTORE_PAGINATION';
+      payload: { search: string; page: number; limit: number };
+    }
   | { type: 'SET_LIMIT'; limit: number }
   | { type: 'SET_PAGE'; page: number };
 
@@ -31,14 +34,13 @@ export const initialState: ProductsListState = {
   page: 1,
   totalPages: 0,
   limit: 10,
-  search: null
+  search: null,
 };
 
 export function productsReducer(
   state: ProductsListState,
   action: ProductsListAction,
 ): ProductsListState {
-
   switch (action.type) {
     case 'FETCH_PRODUCTS_BEGIN':
       return {
@@ -52,7 +54,7 @@ export function productsReducer(
         loading: false,
         products: action.payload.data,
         productsCount: action.payload.total,
-        totalPages: Math.ceil(action.payload.total / state.limit)
+        totalPages: Math.ceil(action.payload.total / state.limit),
       };
     case 'FETCH_PRODUCTS_ERROR':
       return {
@@ -70,20 +72,20 @@ export function productsReducer(
       return {
         ...state,
         page: 1,
-        limit: action.limit
-      }
+        limit: action.limit,
+      };
     case 'SET_SEARCH':
       return {
         ...state,
-        search: action.search
-      }
+        search: action.search,
+      };
     case 'RESTORE_PAGINATION':
       return {
         ...state,
         search: action.payload.search,
         page: action.payload.page,
-        limit: action.payload.limit
-      }
+        limit: action.payload.limit,
+      };
     default:
       return state;
   }
