@@ -50,5 +50,5 @@ jobs:
         with:
           task-definition: ${{ steps.render-web-container.outputs.task-definition }}
           service: catalogue-service
-          cluster: catalogue-api-cluster
+          cluster: catalogue-cluster
           wait-for-service-stability: true
