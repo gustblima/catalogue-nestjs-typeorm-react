@@ -23,7 +23,7 @@ jobs:
 
       - name: Build Web App
         run: | 
-          npm ci &&  npm run build
+          npm ci && npm run build NODE_ENV=production
         working-directory: web
 
       - name: Deploy app S3
