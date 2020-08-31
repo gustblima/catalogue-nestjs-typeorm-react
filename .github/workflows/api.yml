@@ -7,9 +7,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -21,19 +19,30 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
+      - name: Login to ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+  
       - name: Build, tag, and push Image to Amazon ECR
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: catalogue
           IMAGE_TAG: latest
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+
+      - name: 'Generates task definition file'
+        run: aws ecs describe-task-definition --task-definition catalogue | jq '.taskDefinition | {family, executionRoleArn, requiresCompatibilities, networkMode, containerDefinitions, memory, cpu, placementConstraints}' > task-definition.json
 
       - name: Render Amazon ECS task definition
         id: render-web-container
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: api/task-definition.json
-          container-name: catalogue
+          task-definition: task-definition.json
+          container-name: catalogue-container
           image: ${{ steps.build-image.outputs.image }}
 
       - name: Deploy to Amazon ECS service
