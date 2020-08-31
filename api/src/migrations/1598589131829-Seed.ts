@@ -29,9 +29,8 @@ export class Seed1598589131829 implements MigrationInterface {
 
 		const DealsSeed = [{
 			fixedAmount: 0,
-			percentageAmount: 50,
-			startsAt: new Date(),
-			expiresAt: null
+      percentageAmount: 50,
+      isActive: true
 		}];
 		
     const deals = await getRepository('deal').save(DealsSeed);
