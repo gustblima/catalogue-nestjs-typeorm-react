@@ -8,7 +8,9 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Get()
-  async getAllProducts(@Query() { search, offset, limit }: { search?: string, offset?: number, limit?: number }): Promise<Pagination<Product>> {
+  async getAllProducts(@Query('offset', ParseIntPipe) offset?: number,
+                      @Query('limit', ParseIntPipe) limit?: number,
+                      @Query('search') search?: string): Promise<Pagination<Product>> {
     return this.productService.getProducts(search, offset, limit);
   }
 

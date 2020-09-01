@@ -35,11 +35,11 @@ export class ProductService {
     return this.productsRepository.findOne(productId);
   }
 
-  async saveVariant(data: CreateProductVariantDTO) {
+  async saveVariant(data: CreateProductVariantDTO): Promise<ProductVariant> {
     return this.variantsRepository.save(data);
   }
 
-  async saveProduct(data: CreateProductDTO) {
+  async saveProduct(data: CreateProductDTO): Promise<Product> {
     return this.productsRepository.save(data);
   }
 
