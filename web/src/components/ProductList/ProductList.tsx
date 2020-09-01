@@ -42,7 +42,7 @@ export function ProductList() {
       dispatch({ type: 'FETCH_PRODUCTS_BEGIN' });
       try {
         const payload = await getAllProducts({
-          offset: (page - 1) * limit,
+          offset: (Math.max(1, page) - 1) * limit,
           limit,
           search,
         });

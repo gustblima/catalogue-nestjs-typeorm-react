@@ -77,6 +77,7 @@ export function productsReducer(
     case 'SET_SEARCH':
       return {
         ...state,
+        page: 1,
         search: action.search,
       };
     case 'RESTORE_PAGINATION':
